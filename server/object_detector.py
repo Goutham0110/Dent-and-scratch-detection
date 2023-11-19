@@ -1,20 +1,13 @@
 from ultralytics import YOLO
 from flask import request, Response, Flask
+from flask_cors import CORS, cross_origin
 from waitress import serve
 from PIL import Image
 import json
 
 app = Flask(__name__)
-
-@app.route("/")
-def root():
-    """
-    Site main page handler function.
-    :return: Content of index.html file
-    """
-    with open("index.html") as file:
-        return file.read()
-
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route("/detect", methods=["POST"])
 def detect():
